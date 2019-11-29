@@ -1,0 +1,31 @@
+{
+	"parser": "babel-eslint",
+	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"plugins": ["react-hooks"],
+	"rules": {
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"brace-style": "error",
+		"class-methods-use-this": "error",
+		"indent": ["error", "tab"],
+		"jsx-quotes": ["error", "prefer-single"],
+		"keyword-spacing": "error",
+		"no-empty-function": "error",
+		"no-multi-spaces": "error",
+		"no-mixed-operators": "error",
+		"no-mixed-spaces-and-tabs": "error",
+		"no-multiple-empty-lines": ["error", {"max":2}],
+		"no-trailing-spaces": "error",
+		"prefer-destructuring": ["error", {"array": true, "object": true}],
+		"semi": ["error", "never"],
+		"quotes": ["error", "single"]
+	},
+	"env": {
+		"commonjs": true
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+    }
+}
