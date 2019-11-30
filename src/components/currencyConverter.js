@@ -1,25 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
 
 import SelectCurrency from './inputs/selectCurrency'
 import BasicInput from './inputs/utils/basicInput'
-import './currencyConverter.sass'
 import * as actions from '../store/actions/index'
-
-const currenciesFROM = [
-	{
-		currency: 'EURO'
-	},
-	{
-		currency: 'PLN'
-	}
-]
-
-const currenciesTO = [{
-	currency: 'Polish Zloty',
-	id: 'PLN'
-}]
+import dataCurrencies from '../data/currencies'
+import './currencyConverter.sass'
 
 const CurrencyConverter = props => {
 	// eslint-disable-next-line react/prop-types
@@ -27,17 +13,32 @@ const CurrencyConverter = props => {
 	const [base, setBase] = useState('EURO')
 	const [currency, setCurrency] = useState('PLN')
 	const [currencyValue, setCurrencyValue] = useState()
+	const [availableCurrencies, setAvailableCurrencies] = useState({
+		currenciesBase: dataCurrencies,
+		currenciesToExchange: dataCurrencies
+	})
 
-	const handleCurrency = e =>	{
-		setCurrency(e.target.value)
+	const handleCurrencies = e =>	{
+		const {value} = e.target
+		const updatedDataCurrencies = dataCurrencies.filter(el => el.currency !== value)
+		if (e.target.name === 'convertFROM') {
+			setBaseCurrency(value)
+			setBase(value)
+			setAvailableCurrencies({
+				...availableCurrencies,
+				currenciesToExchange: updatedDataCurrencies
+			})
+		} else {
+			setCurrency(value)
+			setAvailableCurrencies({
+				...availableCurrencies,
+				currenciesBase: updatedDataCurrencies
+			})
+		}
 	}
 	const handleCurrencyValue = e => {
 		setValueCurrency(base, currency, Number(e.target.value))
 		setCurrencyValue(Number(e.target.value))
-	}
-	const handleBaseCurrency = e => {
-		setBaseCurrency(e.target.value)
-		setBase(e.target.value)
 	}
 
 	return (
@@ -45,8 +46,9 @@ const CurrencyConverter = props => {
 			<div className='currency-converter-box'>
 				1x <SelectCurrency
 					name='convertFROM'
-					options={currenciesFROM}
-					onChange={handleBaseCurrency}
+					options={availableCurrencies.currenciesBase}
+					onChange={handleCurrencies}
+					value={base}
 				/>
 			</div>
 			<div className='currency-converter-box'>
@@ -61,8 +63,9 @@ const CurrencyConverter = props => {
 				</div>
 				<SelectCurrency
 					name='convertTO'
-					options={currenciesTO}
-					onChange={handleCurrency}
+					options={availableCurrencies.currenciesToExchange}
+					onChange={handleCurrencies}
+					value={currency}
 				/>
 			</div>
 		</div>

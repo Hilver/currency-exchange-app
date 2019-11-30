@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import BasicSelect from './utils/basicSelect'
 
 const SelectCurrency = props => {
-	const {name, onChange, options,} = props
+	const {name, onChange, options, value} = props
 
 	return (
-		<BasicSelect name={name} onChange={onChange}>
-			{options.map(el => {
+		<BasicSelect name={name} onChange={onChange} value={value}>
+			{options.map((el, index) => {
 				return (
-					<option key={el.id}>{el.currency}</option>
+					<option key={index}>{el.currency}</option>
 				)
 			})}
 		</BasicSelect>
@@ -20,7 +20,8 @@ const SelectCurrency = props => {
 SelectCurrency.propTypes = {
 	options: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 	name: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired
+	onChange: PropTypes.func.isRequired,
+	value: PropTypes.string
 }
 
 export default SelectCurrency

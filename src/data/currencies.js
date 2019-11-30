@@ -4,7 +4,7 @@ export default [
 		id: 'EU'
 	},
 	{
-		currency: 'Polish Zloty',
+		currency: 'PLN',
 		id: 'PLN'
 	}
 ]
