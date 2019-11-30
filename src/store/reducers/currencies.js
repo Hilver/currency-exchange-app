@@ -10,7 +10,7 @@ const initialState = [{
 function currenciesExchangeRate (state = initialState, action) {
 	switch (action.type) {
 	case SET_BASE_CURRENCY:
-		state.filter(currency => currency.base === action.payload).length === 0 && state.push({base: action.payload})
+		state.filter(currency => currency.base === action.payload).length === 0 && state.push({base: action.payload, currencyRates: {}})
 		return state
 	case SET_VALUE_CURRENCY: {
 		const newState = state.map(currency => {
