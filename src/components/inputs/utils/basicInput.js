@@ -10,6 +10,7 @@ const BasicInput = props => {
 		label,
 		name,
 		onChange,
+		readOnly,
 		step,
 		type,
 		value
@@ -26,6 +27,7 @@ const BasicInput = props => {
 				required
 				value={value}
 				step={step}
+				readOnly={readOnly}
 			/>
 			<label htmlFor={id}>
 				<span className='input-label-content'>
@@ -39,6 +41,7 @@ const BasicInput = props => {
 BasicInput.defaultProps = {
 	disabled: false,
 	label: '',
+	readOnly: false,
 	type: 'text',
 	value: ''
 }
@@ -50,6 +53,7 @@ BasicInput.propTypes = {
 	step: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
+	readOnly: PropTypes.bool,
 	type: PropTypes.string,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
