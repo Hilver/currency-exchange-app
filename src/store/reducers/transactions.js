@@ -1,4 +1,4 @@
-import {SET_TRANSACTION} from '../actions/types'
+import {SET_TRANSACTION, DELETE_TRANSACTION} from '../actions/types'
 
 const initialState = []
 
@@ -8,6 +8,9 @@ function manageTransactions (state = initialState, action) {
 		let newState = [...state]
 		newState.push(action.payload)
 		return newState
+	}
+	case DELETE_TRANSACTION: {
+		return state.filter(transaction => transaction.id !== action.payload)
 	}
 	default:
 		return state

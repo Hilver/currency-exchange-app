@@ -3,13 +3,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import ConvertedValue from './utils/convertedValue'
+import * as actions from '../store/actions/index'
+import BasicButton from './buttons/utils/basicButton'
 
 const TransactionsList = props => {
-	const {transactions} = props
+	const {transactions, deleteTransaction} = props
+
+	const handleDeleteTransaction = id => {
+		deleteTransaction(id)
+	}
 
 	return (
 		<div className='transaction-list-container'>
-			<table cellSpacing='10' cellPadding='10'>
+			<table cellSpacing='20' cellPadding='20'>
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -30,6 +36,12 @@ const TransactionsList = props => {
 										to={transaction.to}
 										amount={transaction.amount}
 									/>
+									{transaction.to}
+								</td>
+								<td>
+									<BasicButton onClick={() => handleDeleteTransaction(transaction.id)}>
+										DELETE
+									</BasicButton>
 								</td>
 							</tr>
 						)
@@ -46,4 +58,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(TransactionsList)
+export default connect(mapStateToProps, actions)(TransactionsList)
