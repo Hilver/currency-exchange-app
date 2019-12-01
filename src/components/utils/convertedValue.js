@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -5,13 +6,7 @@ import Converter from '../../utils/convertCurrencies'
 
 const ConvertedValue = props => {
 	const {currencies, amount, from, to, handleConversion} = props
-	return (
-		<div>
-			{`
-				${handleConversion(currencies, amount, from, to)}
-			`}
-		</div>
-	)
+	return handleConversion(currencies, amount, from, to)
 }
 
 ConvertedValue.propTypes = {

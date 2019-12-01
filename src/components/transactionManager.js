@@ -47,6 +47,7 @@ const TransactionManager = props => {
 			from,
 			to,
 			amount: transactionAmount,
+			// convertedCurrencyAmount: ,
 			id: (Math.random()).toString()
 		})
 	}
