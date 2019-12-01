@@ -4,7 +4,16 @@ import PropTypes from 'prop-types'
 import './basicInput.sass'
 
 const BasicInput = props => {
-	const {disabled, id, label, name, onChange, type, value} = props
+	const {
+		disabled,
+		id,
+		label,
+		name,
+		onChange,
+		step,
+		type,
+		value
+	} = props
 
 	return (
 		<div className='input-box'>
@@ -16,6 +25,7 @@ const BasicInput = props => {
 				onChange={onChange}
 				required
 				value={value}
+				step={step}
 			/>
 			<label htmlFor={id}>
 				<span className='input-label-content'>
@@ -37,6 +47,7 @@ BasicInput.propTypes = {
 	disabled: PropTypes.bool,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
+	step: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 	type: PropTypes.string,
