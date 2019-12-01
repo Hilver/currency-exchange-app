@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 
 import SelectCurrency from './inputs/selectCurrency'
 import CurrencyConverterInput from './inputs/currencyConverterInput'
+import useCurrenciesList from '../utils/useCurrenciesList'
+import decimalNum from '../utils/convertToDecimalNumber'
 import * as actions from '../store/actions/index'
-import dataCurrencies from '../data/currencies'
 import './currencyConverter.sass'
-
-const decimalNum = num => Number(num) <= 0 ? 0.01 : parseFloat(Number(num).toFixed(2))
 
 const CurrencyConverter = props => {
 	// eslint-disable-next-line react/prop-types
@@ -15,32 +14,27 @@ const CurrencyConverter = props => {
 	const [base, setBase] = useState('EURO')
 	const [currency, setCurrency] = useState('PLN')
 	const [currencyValue, setCurrencyValue] = useState(1.00)
-	const [availableCurrencies, setAvailableCurrencies] = useState({
-		currenciesBase: dataCurrencies,
-		currenciesToExchange: dataCurrencies
-	})
+	const {
+		availableCurrenciesBase,
+		availableCurrenciesToExchange,
+		updateAvailableCurrenciesBase,
+		updateAvailableCurrenciesToExchange
+	} = useCurrenciesList()
 
 	const handleCurrencies = e =>	{
 		const {value} = e.target
-		const updatedDataCurrencies = dataCurrencies.filter(el => el.currency !== value)
 		if (e.target.name === 'convertFROM') {
 			setBaseCurrency(value)
 			setBase(value)
-			setAvailableCurrencies({
-				...availableCurrencies,
-				currenciesToExchange: updatedDataCurrencies
-			})
+			updateAvailableCurrenciesToExchange(value)
 		} else {
 			setCurrency(value)
-			setAvailableCurrencies({
-				...availableCurrencies,
-				currenciesBase: updatedDataCurrencies
-			})
+			updateAvailableCurrenciesBase(value)
 		}
 	}
 	const handleCurrencyValue = e => {
-		setValueCurrency(base, currency, decimalNum(e.target.value))
-		setCurrencyValue(decimalNum(e.target.value))
+		setValueCurrency(base, currency, decimalNum(Number(e.target.value), 0, 0.01))
+		setCurrencyValue(decimalNum(Number(e.target.value), 0, 0.01))
 	}
 
 	return (
@@ -48,7 +42,7 @@ const CurrencyConverter = props => {
 			<div className='currency-converter-box'>
 				1x <SelectCurrency
 					name='convertFROM'
-					options={availableCurrencies.currenciesBase}
+					options={availableCurrenciesBase}
 					onChange={handleCurrencies}
 					value={base}
 				/>
@@ -62,7 +56,7 @@ const CurrencyConverter = props => {
 				</div>
 				<SelectCurrency
 					name='convertTO'
-					options={availableCurrencies.currenciesToExchange}
+					options={availableCurrenciesToExchange}
 					onChange={handleCurrencies}
 					value={currency}
 				/>
