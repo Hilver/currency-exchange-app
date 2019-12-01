@@ -7,7 +7,7 @@ import * as actions from '../store/actions/index'
 import BasicButton from './buttons/utils/basicButton'
 
 const TransactionsList = props => {
-	const {transactions, deleteTransaction} = props
+	const {transactions, transactionsSummary, deleteTransaction} = props
 
 	const handleDeleteTransaction = id => {
 		deleteTransaction(id)
@@ -19,7 +19,7 @@ const TransactionsList = props => {
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>From</th>
+						<th scope='col'>From</th>
 						<th>To</th>
 						<th></th>
 					</tr>
@@ -29,7 +29,7 @@ const TransactionsList = props => {
 						return (
 							<tr key={transaction.id}>
 								<td>{transaction.name}</td>
-								<td>{`${transaction.amount} ${transaction.from}`}</td>
+								<td scope='col'>{`${transaction.amount} ${transaction.from}`}</td>
 								<td>
 									<ConvertedValue
 										from={transaction.from}
@@ -47,6 +47,17 @@ const TransactionsList = props => {
 						)
 					})}
 				</tbody>
+				<tfoot>
+					<tr>
+						<td>SUMMARY</td>
+						<td scope='col'>{transactionsSummary}</td>
+						<td>{/*
+							Oups, I don't know why I thought I will be able
+							to get this value from HOC :D
+						*/}</td>
+						<td></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	)
@@ -54,7 +65,11 @@ const TransactionsList = props => {
 
 function mapStateToProps(state) {
 	return {
-		transactions: state.transactions
+		transactions: state.transactions,
+		transactionsSummary: state.transactions.reduce((acc, next) => {
+			acc += next.amount
+			return acc
+		},0)
 	}
 }
 
