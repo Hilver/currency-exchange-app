@@ -7,6 +7,7 @@ import * as actions from '../store/actions/index'
 import decimalNum from '../utils/convertToDecimalNumber'
 import useCurrenciesList from '../utils/useCurrenciesList'
 import SelectCurrency from './inputs/selectCurrency'
+import ConvertedValue from './utils/convertedValue'
 import './transactionManager.sass'
 
 const TransactionManager = props => {
@@ -74,13 +75,10 @@ const TransactionManager = props => {
 				value={from}
 			/>
 			TO
-			<BasicInput
-				name='transaction-converted-amount'
-				id='transaction-converted-amount'
-				type='number'
-				readOnly={true}
-				onChange={handleTransactionAmount}
-				value={transactionAmount}
+			<ConvertedValue
+				amount={transactionAmount}
+				from={from}
+				to={to}
 			/>
 			<SelectCurrency
 				name='to'
