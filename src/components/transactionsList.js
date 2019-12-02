@@ -51,10 +51,13 @@ const TransactionsList = props => {
 					<tr>
 						<td>SUMMARY</td>
 						<td scope='col'>{transactionsSummary}</td>
-						<td>{/*
-							Oups, I don't know why I thought I will be able
-							to get this value from HOC :D
-						*/}</td>
+						<td>
+							<ConvertedValue
+								from='EURO'
+								to='PLN'
+								amount={transactionsSummary}
+							/>
+						</td>
 						<td></td>
 					</tr>
 				</tfoot>
@@ -67,7 +70,7 @@ function mapStateToProps(state) {
 	return {
 		transactions: state.transactions,
 		transactionsSummary: state.transactions.reduce((acc, next) => {
-			acc += next.amount
+			acc += Number(next.amount)
 			return acc
 		},0)
 	}
