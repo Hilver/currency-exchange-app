@@ -8,12 +8,11 @@ import decimalNum from '../utils/convertToDecimalNumber'
 import useCurrenciesList from '../utils/useCurrenciesList'
 import SelectCurrency from './inputs/selectCurrency'
 import ConvertedValue from './utils/convertedValue'
-import handleConversion from '../utils/handleConversion'
 import './transactionManager.sass'
 
 const TransactionManager = props => {
 	// eslint-disable-next-line react/prop-types
-	const {setTransaction, currencies} = props // redux action
+	const {setTransaction} = props // redux action
 	const [transactionName, setTransactionName] = useState()
 	const [transactionAmount, setTransactionAmount] = useState(0)
 	const [from, setFrom] = useState('EURO')
@@ -48,7 +47,6 @@ const TransactionManager = props => {
 			from,
 			to,
 			amount: transactionAmount,
-			convertedCurrencyAmount: handleConversion(currencies, transactionAmount, from, to),
 			id: (Math.random()).toString()
 		})
 	}
@@ -62,7 +60,7 @@ const TransactionManager = props => {
 				onChange={handleTransactionName}
 				value={transactionName}
 			/>
-			FROM
+			<span>FROM</span>
 			<BasicInput
 				name='transaction-amount'
 				id='transaction-amount'
@@ -76,7 +74,7 @@ const TransactionManager = props => {
 				onChange={handleExchangeCurrencies}
 				value={from}
 			/>
-			TO
+			<span>TO</span>
 			<ConvertedValue
 				amount={transactionAmount}
 				from={from}
@@ -95,8 +93,4 @@ const TransactionManager = props => {
 	)
 }
 
-const mapStateToProps = state => ({
-	currencies: state.currencies
-})
-
-export default connect(mapStateToProps, actions)(TransactionManager)
+export default connect(null, actions)(TransactionManager)

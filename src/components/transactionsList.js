@@ -6,6 +6,7 @@ import ConvertedValue from './utils/convertedValue'
 import * as actions from '../store/actions/index'
 import BasicButton from './buttons/utils/basicButton'
 import BasicTable from './tables/utils/basicTable'
+import './transactionList.sass'
 
 const TransactionsList = props => {
 	const {transactions, transactionsSummary, deleteTransaction} = props
@@ -28,6 +29,7 @@ const TransactionsList = props => {
 
 	return (
 		<div className='transaction-list-container'>
+			<h5>Transaction List</h5>
 			<BasicTable headers={headers} footers={footers}>
 				{transactions.map(transaction => {
 					return (

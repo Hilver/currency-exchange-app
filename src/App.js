@@ -12,6 +12,7 @@ const App = () => {
 
 	return (
 		<div className='app-container'>
+			<h3>Currency Converter</h3>
 			<CurrencyConverter />
 			<TransactionManager />
 			<div className='list-container'>

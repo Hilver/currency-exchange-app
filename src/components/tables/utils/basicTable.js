@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './basicTable.sass'
+
 const BasicTable = props => {
 	const { children, footers, headers } = props
 
 	const getRandomKey = () => Math.random() * 10
 
 	return (
-		<table cellSpacing='20' cellPadding='20'>
+		<table cellSpacing='20' cellPadding='20' className='basic-table'>
 			{headers &&
 			<thead>
 				<tr>

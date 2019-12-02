@@ -10,7 +10,7 @@ const MostValuableTransaction = props => {
 
 	return (
 		<center>
-			<div>Most Valuable Transaction</div>
+			<h5>Most Valuable Transaction</h5>
 			<BasicTable headers={['Name', 'From', 'To']}>
 				{mostValuableTransaction.map((transaction, i) => {
 					return (
